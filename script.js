@@ -1,7 +1,8 @@
 const deckList = [
     {
         name: `blueAce`, 
-        image: `cardImages/Blue/ace.png`
+        image: `cardImages/Blue/ace.png`,
+        value: 11
 
     }, 
     {
@@ -83,7 +84,7 @@ const deckList = [
     {
         name: `greenAce`, 
         image: `cardImages/Green/ace.png`, 
-
+        value: 11
     }, 
     {
         name: `greenTwo`, 
@@ -160,6 +161,7 @@ const deckList = [
     {
         name: `redAce`, 
         image: `cardImages/Red/ace.png`, 
+        value: 11
     }, 
     {
         name: `redTwo`, 
@@ -236,6 +238,7 @@ const deckList = [
     {
         name: `yellowAce`, 
         image: `cardImages/Yellow/ace.png`, 
+        value: 11
     }, 
     {
         name: `yellowTwo`, 
@@ -324,13 +327,22 @@ function shuffle(array) {
 
 }
 
-
-
 deckBtn.addEventListener(`click`, () => {
     let newArray = (shuffle(deckList))
     let newImg = document.createElement(`img`)
     newImg.src = `${newArray[deckCounter].image}`
+    newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
+    // newImg.setAttribute(`data-name`, )
     document.querySelector(`#test`).appendChild(newImg)
     deckCounter += 1
-
+    total()
 })
+
+function total() {
+    let currentCards = document.querySelectorAll(`#test img`)
+    let total = 0
+    for (let i=0; i< currentCards.length; i++){
+        total += parseInt(currentCards[i].dataset.id)
+    }
+    console.log(total)
+}
