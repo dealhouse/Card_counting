@@ -321,7 +321,21 @@ deckBtn = document.querySelector(`#deck`)
 holdBtn = document.querySelector(`#hold`)
 playBtn = document.querySelector(`#play`)
 
+function winScreen() {
+    holdBtn.remove()
+    deckBtn.remove()
+    let youWin = document.createElement(`h1`)
+    youWin.innerText = `You won!`
+    document.querySelector(`#display`).appendChild(youWin)
+}
 
+function loseScreen() {
+    holdBtn.remove()
+    deckBtn.remove()
+    let youLose = document.createElement(`h1`)
+    youLose.innerText = `You lost.`
+    document.querySelector(`#display`).appendChild(youLose)
+}
 
 function pickACard(){
     let newImg = document.createElement(`img`)
@@ -334,16 +348,28 @@ function pickACard(){
 function hold() {
     deckBtn.removeEventListener(`click`, pickACard)
     dealerTurn()
+    document.querySelector(`#cardback`).remove()
 }
 
-function dealerTurn() {
-    while (dealerHoldValue < 17) {
+function displayCardBack() {
+    let newImg = document.createElement(`img`)
+    newImg.src = `cardImages/cardback.png`
+    newImg.setAttribute(`id`, `cardback`)
+    document.querySelector(`#dealer-card-area`).appendChild(newImg)
+}
+function dealerPick() {
     let newImg = document.createElement(`img`)
     newImg.src = `${newArray[deckCounter].image}`
     newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
     document.querySelector(`#dealer-card-area`).appendChild(newImg)
     deckCounter += 1
     total(`dealer`)}
+
+
+function dealerTurn() {
+    while (dealerHoldValue < 17) {
+    dealerPick()
+}
 } 
 
 
@@ -364,6 +390,11 @@ playBtn.addEventListener(`click`, () => {
     newArray = (shuffle(deckList))
     deckBtn.addEventListener(`click`, pickACard)
     holdBtn.addEventListener(`click`, hold)
+    for (let i=0; i<2; i++) {
+        pickACard()
+    }
+    dealerPick()
+    displayCardBack()
     playBtn.remove()
 })
 
