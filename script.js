@@ -2,7 +2,7 @@ const deckList = [
     {
         name: `blueAce`, 
         image: `cardImages/Blue/ace.png`,
-        value: 11
+        value: `A`
 
     }, 
     {
@@ -84,7 +84,7 @@ const deckList = [
     {
         name: `greenAce`, 
         image: `cardImages/Green/ace.png`, 
-        value: 11
+        value: `A`
     }, 
     {
         name: `greenTwo`, 
@@ -161,7 +161,7 @@ const deckList = [
     {
         name: `redAce`, 
         image: `cardImages/Red/ace.png`, 
-        value: 11
+        value: `A`
     }, 
     {
         name: `redTwo`, 
@@ -238,7 +238,7 @@ const deckList = [
     {
         name: `yellowAce`, 
         image: `cardImages/Yellow/ace.png`, 
-        value: 11
+        value: `A`
     }, 
     {
         name: `yellowTwo`, 
@@ -314,6 +314,7 @@ const deckList = [
 ]
 let deckCounter = 0
 deckBtn = document.querySelector(`#deck`)
+
 //Using the Fisher-Yates algorithm to shuffle 
 function shuffle(array) {
     for (let i=(array.length -1); i > 0; i--){
@@ -332,17 +333,42 @@ deckBtn.addEventListener(`click`, () => {
     let newImg = document.createElement(`img`)
     newImg.src = `${newArray[deckCounter].image}`
     newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
-    // newImg.setAttribute(`data-name`, )
     document.querySelector(`#test`).appendChild(newImg)
     deckCounter += 1
     total()
 })
 
+
 function total() {
     let currentCards = document.querySelectorAll(`#test img`)
-    let total = 0
-    for (let i=0; i< currentCards.length; i++){
-        total += parseInt(currentCards[i].dataset.id)
+    const valueArr = []
+    for (let i=0; i<currentCards.length; i++) {
+        valueArr.push(parseInt(currentCards[i].dataset.id))
     }
-    console.log(total)
+    console.log(valueArr)
+    let totalCount = 0
+    let nums = valueArr.filter((num) => {
+        return (isNaN(num)) === false 
+    })
+    console.log(valueArr)
+    console.log(nums)
+    for (let i=0; i<nums.length; i++){
+    totalCount += nums[i]
 }
+    let aces = valueArr.filter((ace) => {
+        return (isNaN(ace)) === true
+    })
+    for (let i=0; i<aces.length; i++) {
+        if ((totalCount + 11) > 21) {
+            totalCount += 1
+        }
+        else if ((totalCount + 1) > 21){
+            totalCount += 1
+        }
+        else {
+            totalCount += 11
+        }
+    }
+    console.log(totalCount)
+    console.log(aces)
+    }
