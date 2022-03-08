@@ -333,8 +333,18 @@ function pickACard(){
 }
 function hold() {
     deckBtn.removeEventListener(`click`, pickACard)
+    dealerTurn()
 }
 
+function dealerTurn() {
+    while (dealerHoldValue < 17) {
+    let newImg = document.createElement(`img`)
+    newImg.src = `${newArray[deckCounter].image}`
+    newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
+    document.querySelector(`#dealer-card-area`).appendChild(newImg)
+    deckCounter += 1
+    total(`dealer`)}
+} 
 
 
 //Using the Fisher-Yates algorithm to shuffle 
