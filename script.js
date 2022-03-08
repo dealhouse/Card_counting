@@ -315,11 +315,31 @@ const deckList = [
 let deckCounter = 0
 let playerHoldValue = 0
 let dealerHoldValue = 0
-let totalValue = 0
 let newArray = []
 deckBtn = document.querySelector(`#deck`)
 holdBtn = document.querySelector(`#hold`)
 playBtn = document.querySelector(`#play`)
+let gameActive = false
+let playerCount = document.querySelector(`#player-count`)
+let dealerCount = document.querySelector(`#dealer-count`)
+
+function winCheck() {
+    if (playerHoldValue > 21) {
+        loseScreen()
+    }
+    else if (dealerHoldValue > 21) {
+        winScreen()
+    }
+    else if (playerHoldValue > dealerHoldValue && gameActive === false) {
+        winScreen()
+    }
+    else if (playerHoldValue === dealerHoldValue && gameActive === false) {
+        tieScreen()
+    }
+    else if (dealerHoldValue > playerHoldValue && gameActive === false) {
+        loseScreen()
+    }
+}
 
 function winScreen() {
     holdBtn.remove()
@@ -337,6 +357,15 @@ function loseScreen() {
     document.querySelector(`#display`).appendChild(youLose)
 }
 
+function tieScreen() {
+    holdBtn.remove()
+    deckBtn.remove()
+    let youTie = document.createElement(`h1`)
+    youTie.innerText = `You tied.`
+    document.querySelector(`#display`).appendChild(youTie)
+}
+
+
 function pickACard(){
     let newImg = document.createElement(`img`)
     newImg.src = `${newArray[deckCounter].image}`
@@ -344,19 +373,26 @@ function pickACard(){
     document.querySelector(`#player-card-area`).appendChild(newImg)
     deckCounter += 1
     total(`player`)
+    playerCount.innerText = playerHoldValue
+    
 }
 function hold() {
     deckBtn.removeEventListener(`click`, pickACard)
     dealerTurn()
     document.querySelector(`#cardback`).remove()
+    gameActive = false
+    winCheck()
+    dealerCount.innerText = dealerHoldValue
 }
 
 function displayCardBack() {
     let newImg = document.createElement(`img`)
     newImg.src = `cardImages/cardback.png`
     newImg.setAttribute(`id`, `cardback`)
+    newImg.setAttribute(`data-id`, 0)
     document.querySelector(`#dealer-card-area`).appendChild(newImg)
 }
+
 function dealerPick() {
     let newImg = document.createElement(`img`)
     newImg.src = `${newArray[deckCounter].image}`
@@ -364,6 +400,7 @@ function dealerPick() {
     document.querySelector(`#dealer-card-area`).appendChild(newImg)
     deckCounter += 1
     total(`dealer`)}
+    dealerCount.innerText = dealerHoldValue
 
 
 function dealerTurn() {
@@ -392,10 +429,14 @@ playBtn.addEventListener(`click`, () => {
     holdBtn.addEventListener(`click`, hold)
     for (let i=0; i<2; i++) {
         pickACard()
+        
     }
     dealerPick()
     displayCardBack()
     playBtn.remove()
+    gameActive = true
+    playerCount.innerText = playerHoldValue
+    dealerCount.innerText = dealerHoldValue
 })
 
 
@@ -406,13 +447,13 @@ function total(cardArea) {
     for (let i=0; i<currentCards.length; i++) {
         valueArr.push(parseInt(currentCards[i].dataset.id))
     }
-    // console.log(valueArr)
+    console.log(valueArr)
     let totalCount = 0
     let nums = valueArr.filter((num) => {
         return (isNaN(num)) === false 
     })
-    // console.log(valueArr)
-    // console.log(nums)
+    console.log(valueArr)
+    console.log(nums)
     for (let i=0; i<nums.length; i++){
     totalCount += nums[i]
 }
@@ -430,7 +471,7 @@ function total(cardArea) {
             totalCount += 11
         }
     }
-    // console.log(totalCount)
+    console.log(totalCount)
     if (cardArea === `player`) {
         playerHoldValue = totalCount}
     else {
@@ -438,7 +479,7 @@ function total(cardArea) {
     }
     console.log(playerHoldValue)
     console.log(dealerHoldValue)
-    // console.log(aces)
+    console.log(aces)
     }
 
 
