@@ -313,7 +313,29 @@ const deckList = [
     }
 ]
 let deckCounter = 0
+let playerHoldValue = 0
+let dealerHoldValue = 0
+let totalValue = 0
+let newArray = []
 deckBtn = document.querySelector(`#deck`)
+holdBtn = document.querySelector(`#hold`)
+playBtn = document.querySelector(`#play`)
+
+
+
+function pickACard(){
+    let newImg = document.createElement(`img`)
+    newImg.src = `${newArray[deckCounter].image}`
+    newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
+    document.querySelector(`#player-card-area`).appendChild(newImg)
+    deckCounter += 1
+    total(`player`)
+}
+function hold() {
+    deckBtn.removeEventListener(`click`, pickACard)
+}
+
+
 
 //Using the Fisher-Yates algorithm to shuffle 
 function shuffle(array) {
@@ -328,30 +350,28 @@ function shuffle(array) {
 
 }
 
-deckBtn.addEventListener(`click`, () => {
-    let newArray = (shuffle(deckList))
-    let newImg = document.createElement(`img`)
-    newImg.src = `${newArray[deckCounter].image}`
-    newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
-    document.querySelector(`#test`).appendChild(newImg)
-    deckCounter += 1
-    total()
+playBtn.addEventListener(`click`, () => {
+    newArray = (shuffle(deckList))
+    deckBtn.addEventListener(`click`, pickACard)
+    holdBtn.addEventListener(`click`, hold)
+    playBtn.remove()
 })
 
 
-function total() {
-    let currentCards = document.querySelectorAll(`#test img`)
+
+function total(cardArea) {
+    let currentCards = document.querySelectorAll(`#${cardArea}-card-area img`)
     const valueArr = []
     for (let i=0; i<currentCards.length; i++) {
         valueArr.push(parseInt(currentCards[i].dataset.id))
     }
-    console.log(valueArr)
+    // console.log(valueArr)
     let totalCount = 0
     let nums = valueArr.filter((num) => {
         return (isNaN(num)) === false 
     })
-    console.log(valueArr)
-    console.log(nums)
+    // console.log(valueArr)
+    // console.log(nums)
     for (let i=0; i<nums.length; i++){
     totalCount += nums[i]
 }
@@ -369,6 +389,15 @@ function total() {
             totalCount += 11
         }
     }
-    console.log(totalCount)
-    console.log(aces)
+    // console.log(totalCount)
+    if (cardArea === `player`) {
+        playerHoldValue = totalCount}
+    else {
+        dealerHoldValue = totalCount
     }
+    console.log(playerHoldValue)
+    console.log(dealerHoldValue)
+    // console.log(aces)
+    }
+
+

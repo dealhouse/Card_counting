@@ -5,20 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>War</title>
+    <title>Blackjack</title>
 </head>
 <body>
     <h1>Blackjack</h1>
+    <button id="play"></button>
     <div id="player-hand">
         <h2>Your cards</h2>
-        <div class="card-area"></div>
+        <div class="card-area" id="player-card-area"></div>
         <h2>Card count: <span id="player-count"></span></h2>
     </div>
+    <button id="hold"></button>
     <button id="deck"></button>
     <div id="computer-hand">
         <h2>Card count: </h2>
-        <div class="card-area"></div>
-        <h2>Dealer cards: <span id="dealer-count"></span></h2>
+        <div class="card-area" id="dealer-card-area"></div>
+        <h2>: Dealer cards <span id="dealer-count"></span></h2>
      </div>
      <div id="test"></div>
     <script src="script.js"></script>
