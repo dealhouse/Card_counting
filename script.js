@@ -319,7 +319,7 @@ let newArray = []
 deckBtn = document.querySelector(`#deck`)
 holdBtn = document.querySelector(`#hold`)
 playBtn = document.querySelector(`#play`)
-let gameActive = false
+let gameActive = null
 let playerCount = document.querySelector(`#player-count`)
 let dealerCount = document.querySelector(`#dealer-count`)
 
@@ -346,6 +346,7 @@ function winScreen() {
     deckBtn.remove()
     let youWin = document.createElement(`h1`)
     youWin.innerText = `You won!`
+    youWin.setAttribute(`class`, `win-screen`)
     document.querySelector(`#display`).appendChild(youWin)
 }
 
@@ -354,6 +355,7 @@ function loseScreen() {
     deckBtn.remove()
     let youLose = document.createElement(`h1`)
     youLose.innerText = `You lost.`
+    youLose.setAttribute(`class`, `win-screen`)
     document.querySelector(`#display`).appendChild(youLose)
 }
 
@@ -362,6 +364,7 @@ function tieScreen() {
     deckBtn.remove()
     let youTie = document.createElement(`h1`)
     youTie.innerText = `You tied.`
+    youTie.setAttribute(`class`, `win-screen`)
     document.querySelector(`#display`).appendChild(youTie)
 }
 
@@ -373,6 +376,7 @@ function pickACard(){
     document.querySelector(`#player-card-area`).appendChild(newImg)
     deckCounter += 1
     total(`player`)
+    winCheck()
     playerCount.innerText = playerHoldValue
     
 }
@@ -434,7 +438,10 @@ playBtn.addEventListener(`click`, () => {
     dealerPick()
     displayCardBack()
     playBtn.remove()
+    deckBtn.style.opacity = 1
+    holdBtn.style.opacity = 1
     gameActive = true
+    winCheck()
     playerCount.innerText = playerHoldValue
     dealerCount.innerText = dealerHoldValue
 })

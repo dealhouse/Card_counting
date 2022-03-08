@@ -1,0 +1,67 @@
+body {
+    background-image: url(cardImages/felt.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+h1 {
+    text-align: center;
+}
+
+h2 {
+    color: white;
+}
+span {
+    color: white;
+}
+#player-hand {
+    display: flex;
+    justify-content: start;
+}
+
+#dealer-hand {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+#display {
+    margin: 150px;
+    height: 100px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+}
+
+.card-area {
+    width: 500px;
+    height: 98px;
+    border: 5px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+     
+}
+
+#deck {
+    border: none;
+    background: none;
+    grid-column: 7/8;
+    opacity: 0;
+}
+
+#hold {
+    border-radius: 50%;
+    grid-column: 4/5;
+    background-color: crimson;
+    opacity: 0;
+}
+#play {
+    grid-column: 5/7;
+}
+
+.win-screen {
+    grid-column: 5/6;
+    color: white;
+}
