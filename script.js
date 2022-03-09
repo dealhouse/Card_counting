@@ -319,9 +319,13 @@ let newArray = []
 deckBtn = document.querySelector(`#deck`)
 holdBtn = document.querySelector(`#hold`)
 playBtn = document.querySelector(`#play`)
+replayBtn = document.querySelector(`#replay`)
 let gameActive = null
 let playerCount = document.querySelector(`#player-count`)
 let dealerCount = document.querySelector(`#dealer-count`)
+let winsNum = document.querySelector(`#winsNum`)
+let lossesNum = document.querySelector(`#lossesNum`)
+let tiesNum = document.querySelector(`#tiesNum`)
 
 function winCheck() {
     if (playerHoldValue > 21) {
@@ -342,30 +346,45 @@ function winCheck() {
 }
 
 function winScreen() {
-    holdBtn.remove()
-    deckBtn.remove()
+    holdBtn.disabled = true
+    holdBtn.style.opacity = 0
+    deckBtn.disabled = true
+    deckBtn.style.opacity = 0
     let youWin = document.createElement(`h1`)
     youWin.innerText = `You won!`
     youWin.setAttribute(`class`, `win-screen`)
-    document.querySelector(`#display`).appendChild(youWin)
+    document.querySelector(`#display`).prepend(youWin)
+    winsNum.innerText = `${(parseInt(winsNum.textContent) + 1)}`
+    replayBtn.disabled = false
+    replayBtn.style.opacity = 1
 }
 
 function loseScreen() {
-    holdBtn.remove()
-    deckBtn.remove()
+    holdBtn.disabled = true
+    holdBtn.style.opacity = 0
+    deckBtn.disabled = true
+    deckBtn.style.opacity = 0
     let youLose = document.createElement(`h1`)
     youLose.innerText = `You lost.`
     youLose.setAttribute(`class`, `win-screen`)
-    document.querySelector(`#display`).appendChild(youLose)
+    document.querySelector(`#display`).prepend(youLose)
+    lossesNum.innerText = `${(parseInt(lossesNum.textContent) + 1)}`
+    replayBtn.disabled = false
+    replayBtn.style.opacity = 1
 }
 
 function tieScreen() {
-    holdBtn.remove()
-    deckBtn.remove()
+    holdBtn.disabled = true
+    holdBtn.style.opacity = 0
+    deckBtn.disabled = true
+    deckBtn.style.opacity = 0
     let youTie = document.createElement(`h1`)
     youTie.innerText = `You tied.`
     youTie.setAttribute(`class`, `win-screen`)
-    document.querySelector(`#display`).appendChild(youTie)
+    document.querySelector(`#display`).prepend(youTie)
+    tiesNum.innerText = `${(parseInt(tiesNum.textContent) + 1)}`
+    replayBtn.disabled = false
+    replayBtn.style.opacity = 1
 }
 
 
@@ -381,7 +400,7 @@ function pickACard(){
     
 }
 function hold() {
-    deckBtn.removeEventListener(`click`, pickACard)
+    deckBtn.disabled = true
     dealerTurn()
     document.querySelector(`#cardback`).remove()
     gameActive = false
@@ -446,7 +465,31 @@ playBtn.addEventListener(`click`, () => {
     dealerCount.innerText = dealerHoldValue
 })
 
-
+replayBtn.addEventListener(`click`, () => {
+    newArray = (shuffle(deckList))
+    holdBtn.disabled = false
+    holdBtn.style.opacity = 1
+    deckBtn.disabled = false
+    deckBtn.style.opacity = 1
+    replayBtn.disabled = true
+    replayBtn.style.opacity = 0
+    document.querySelector(`.win-screen`).remove()
+    document.querySelector(`#player-card-area`).innerHTML = `<span>Your hand</span>`
+    document.querySelector(`#dealer-card-area`).innerHTML = `<span>Dealer's hand</span>`
+    gameActive = true
+    deckCounter = 0
+    playerHoldValue = 0
+    dealerHoldValue = 0
+    playerCount.innerText = playerHoldValue
+    dealerCount.innerText = dealerHoldValue
+    for (let i=0; i<2; i++) {
+        pickACard()
+        
+    }
+    dealerPick()
+    displayCardBack()
+    dealerCount.innerText = dealerHoldValue
+})
 
 function total(cardArea) {
     let currentCards = document.querySelectorAll(`#${cardArea}-card-area img`)
