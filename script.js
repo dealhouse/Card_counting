@@ -312,6 +312,14 @@ const deckList = [
         value: 10
     }
 ]
+const shuffleSound = new Audio()
+shuffleSound.src = `cardImages/shuffle.wav`
+const hitSound = new Audio()
+hitSound.src = `cardImages/hit.wav`
+const holdSound = new Audio()
+holdSound.src = `cardImages/hold.wav`
+const replaySound = new Audio()
+replaySound.src = `cardImages/replay.wav`
 let deckCounter = 0
 let playerHoldValue = 0
 let dealerHoldValue = 0
@@ -326,7 +334,6 @@ let dealerCount = document.querySelector(`#dealer-count`)
 let winsNum = document.querySelector(`#winsNum`)
 let lossesNum = document.querySelector(`#lossesNum`)
 let tiesNum = document.querySelector(`#tiesNum`)
-
 function winCheck() {
     if (playerHoldValue > 21) {
         loseScreen()
@@ -393,12 +400,13 @@ function pickACard(t){
     newImg.src = `${newArray[deckCounter].image}`
     newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
     document.querySelector(`#player-card-area`).appendChild(newImg)
-    gsap.from(newImg, {duration: 1, opacity: 0, x: 100, delay: (t/4)})
+    gsap.from(newImg, {duration: 1.5, opacity: 0, x: 100, delay: (t/2)})
     deckCounter += 1
     total(`player`)
     winCheck()
     playerCount.innerText = playerHoldValue
-    
+    if (gameActive === true && (deckBtn.disabled === false)) {
+    hitSound.play()}
 }
 function hold() {
     deckBtn.disabled = true
@@ -407,15 +415,16 @@ function hold() {
     gameActive = false
     winCheck()
     dealerCount.innerText = dealerHoldValue
+    holdSound.play
 }
 
 function displayCardBack() {
     let newImg = document.createElement(`img`)
-    newImg.src = `cardImages/cardback.png`
+    newImg.src = `cardImages/back.png`
     newImg.setAttribute(`id`, `cardback`)
     newImg.setAttribute(`data-id`, 0)
     document.querySelector(`#dealer-card-area`).appendChild(newImg)
-    gsap.from(newImg, {duration: 1, opacity: 0, x: -100})
+    gsap.from(newImg, {duration: 1.5, opacity: 0, x: -100})
 }
 
 function dealerPick(t) {
@@ -423,7 +432,7 @@ function dealerPick(t) {
     newImg.src = `${newArray[deckCounter].image}`
     newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
     document.querySelector(`#dealer-card-area`).appendChild(newImg)
-    gsap.from(newImg, {duration: 1, opacity: 0, x: -100, delay: (t/4)})
+    gsap.from(newImg, {duration: 1.5, opacity: 0, x: (-100*t), delay: (t/4)})
     deckCounter += 1
     total(`dealer`)}
     dealerCount.innerText = dealerHoldValue
@@ -468,13 +477,13 @@ playBtn.addEventListener(`click`, () => {
     winCheck()
     playerCount.innerText = playerHoldValue
     dealerCount.innerText = dealerHoldValue
+    shuffleSound.play()
 })
 
 replayBtn.addEventListener(`click`, () => {
     newArray = (shuffle(deckList))
     holdBtn.disabled = false
     holdBtn.style.opacity = 1
-    deckBtn.disabled = false
     deckBtn.style.opacity = 1
     replayBtn.disabled = true
     replayBtn.style.opacity = 0
@@ -487,13 +496,15 @@ replayBtn.addEventListener(`click`, () => {
     dealerHoldValue = 0
     playerCount.innerText = playerHoldValue
     dealerCount.innerText = dealerHoldValue
+    replaySound.play()
     for (let i=0; i<2; i++) {
-        pickACard()
-        
+        pickACard(i)
+        console.log(deckBtn.disabled)
     }
     dealerPick()
     displayCardBack()
     dealerCount.innerText = dealerHoldValue
+    deckBtn.disabled = false
 })
 
 function total(cardArea) {
