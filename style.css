@@ -28,7 +28,7 @@ h2 {
     color: white;
 }
 span {
-    color: white;
+    color: #EDF4F2;
 }
 #player-hand {
     display: flex;
@@ -42,12 +42,17 @@ span {
 }
 
 #display {
-    margin-top: 150px;
-    height: 100px;
+    margin: 75px auto;
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    align-items: center;
+    flex-direction: column
 
+}
+
+#results {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
 }
 
 #hand-area{
@@ -83,7 +88,8 @@ td {
 .card-area {
     width: 500px;
     height: 98px;
-    border: 5px solid white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
     border-radius: 4%;
     display: flex;
     align-items: center;
@@ -91,37 +97,44 @@ td {
     background-image: url(cardImages/red\ felt.jpeg);
 }
 
+#gameplay-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 66px;
+}
 #deck {
     /* border: none; */
     background-color: rgb(0, 174, 255);
-    grid-column: 2/3;
+    /* grid-column: 2/3; */
     opacity: 0;
     font-size: 24px;
     color: white;
-    border-radius: 10%;
+    border-radius: 50%;
 }
 
 #hold {
-    border-radius: 10%;
-    grid-column: 1/2;
+    border-radius: 50%;
+    /* grid-column: 1/2; */
     background-color: rgb(220,52,69);
     opacity: 0;
     font-size: 24px;
     color: white;
 }
 #play {
-    grid-column: 2/3;
-    background-color: rgb(0,123,255);
-    border-radius: 10%;
+    /* grid-column: 2/3; */
+    background-color: #F5A31A;
+    height: 63px;
+    border-radius: 50%;
     color: white;
     font-size: 24px;
 }
 
 #replay {
-    grid-column: 3/4;
-    background-color: rgb(255,193,13); 
-    border-radius: 10%;
+    /* grid-column: 3/4; */
+    background-color: #F5A31A; 
+    border-radius: 50%;
     font-size: 24px;
+    height: 91px;
     opacity: 0;
 }
 
