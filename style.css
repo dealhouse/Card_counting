@@ -1,6 +1,7 @@
 body {
     background-image: url(cardImages/background.jpeg);
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     font-family: 'Rokkitt', serif;
 }
@@ -142,3 +143,6 @@ td {
     opacity: 0;
 }
 
+#chips{
+    margin-top: -60px;
+}
