@@ -16,6 +16,10 @@ h1 {
     color: white;
 }
 
+li, h3 {
+    color: #F5A31A;
+}
+
 a {
     font-size: 24px;
     color: white;
@@ -65,6 +69,12 @@ grid-template-columns: 1fr 1fr 1fr;
     display: flex;
     justify-content: space-between;
 }
+
+table{
+    width: 300px;
+    margin-left: -125px;
+}
+
 table, th, td {
     border: 2px solid white;
     border-collapse: collapse;

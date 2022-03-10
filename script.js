@@ -415,7 +415,7 @@ function hold() {
     gameActive = false
     winCheck()
     dealerCount.innerText = dealerHoldValue
-    holdSound.play
+    holdSound.play()
 }
 
 function displayCardBack() {
