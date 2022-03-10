@@ -88,6 +88,7 @@ td {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    background-image: url(cardImages/red\ felt.jpeg);
 }
 
 #deck {
