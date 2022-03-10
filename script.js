@@ -388,12 +388,12 @@ function tieScreen() {
 }
 
 
-function pickACard(){
+function pickACard(t){
     let newImg = document.createElement(`img`)
     newImg.src = `${newArray[deckCounter].image}`
     newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
     document.querySelector(`#player-card-area`).appendChild(newImg)
-    gsap.from(newImg, {duration: 1, opacity: 0, x: 100})
+    gsap.from(newImg, {duration: 1, opacity: 0, x: 100, delay: (t/4)})
     deckCounter += 1
     total(`player`)
     winCheck()
@@ -456,7 +456,7 @@ playBtn.addEventListener(`click`, () => {
     deckBtn.addEventListener(`click`, pickACard)
     holdBtn.addEventListener(`click`, hold)
     for (let i=0; i<2; i++) {
-        pickACard()
+        pickACard(i)
         
     }
     dealerPick()
