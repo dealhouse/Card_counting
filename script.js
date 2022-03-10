@@ -393,6 +393,7 @@ function pickACard(){
     newImg.src = `${newArray[deckCounter].image}`
     newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
     document.querySelector(`#player-card-area`).appendChild(newImg)
+    gsap.from(newImg, {duration: 1, opacity: 0, x: 100})
     deckCounter += 1
     total(`player`)
     winCheck()
@@ -414,21 +415,25 @@ function displayCardBack() {
     newImg.setAttribute(`id`, `cardback`)
     newImg.setAttribute(`data-id`, 0)
     document.querySelector(`#dealer-card-area`).appendChild(newImg)
+    gsap.from(newImg, {duration: 1, opacity: 0, x: -100})
 }
 
-function dealerPick() {
+function dealerPick(t) {
     let newImg = document.createElement(`img`)
     newImg.src = `${newArray[deckCounter].image}`
     newImg.setAttribute(`data-id`, `${newArray[deckCounter].value}`)
     document.querySelector(`#dealer-card-area`).appendChild(newImg)
+    gsap.from(newImg, {duration: 1, opacity: 0, x: -100, delay: (t/4)})
     deckCounter += 1
     total(`dealer`)}
     dealerCount.innerText = dealerHoldValue
 
 
 function dealerTurn() {
+    let dCards = 0
     while (dealerHoldValue < 17) {
-    dealerPick()
+    dCards ++
+    dealerPick(dCards)
 }
 } 
 
