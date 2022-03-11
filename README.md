@@ -20,4 +20,4 @@
 #### **Image Assets: Jonathan Yu**
 #### **Audio Assets: [Freesound](https://freesound.org/)**
 #### **Shuffling function: [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)**
-#### **Rule set: [Blackjack Apprenticeship](https://www.blackjackapprenticeship.com/how-to-play-blackjack/)
+#### **Rule set: [Blackjack Apprenticeship](https://www.blackjackapprenticeship.com/how-to-play-blackjack/)**
