@@ -14,7 +14,7 @@
 ![Gameboard](https://i.imgur.com/9oM7H0n.png)
 ### ***Getting Started***
 #### **This project is free to access. A Trello board was used to track the development process [here](https://trello.com/b/DCbokEpZ/project-1).**
-#### **The project itself was deployed to surge here: right-suggestion.surge.sh**
+#### **The project itself was deployed to surge [here](https://black-jack-count.surge.sh)**
 ***
 ### ***Credits***
 #### **Image Assets: Jonathan Yu**
